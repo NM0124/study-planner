@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Planner — Study Planner</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+</head>
+<body class="theme-pink">
+  <main class="center-root wide">
+    <section class="card card-3d planner-card">
+
+      <!-- Header bar -->
+      <header class="planner-header">
+        <div class="planner-left">
+          <img class="logo-xs" src="/static/img/logo.png" />
+          <h2>Study Planner</h2>
+        </div>
+        <div class="planner-right">
+          <a class="btn btn-outline" href="/dashboard">Dashboard</a>
+          <a class="btn btn-ghost" href="/logout">Logout</a>
+        </div>
+      </header>
+
+      <!-- ------------------- PLANNER UI (YOUR OLD UI) ------------------- -->
+      <div id="planner-root">
+
+        <h3>Add Subjects</h3>
+        <div class="subject-container" id="subjects-list"></div>
+        <button class="btn btn-primary" id="add-subject-btn">+ Add Subject</button>
+        <button class="btn btn-outline" id="seed-btn">Load Sample Subjects</button>
+
+        <h3 style="margin-top:25px;">Unavailable Dates</h3>
+        <div class="input-box">
+          <label>Select dates when you cannot study:</label>
+          <input type="text" id="unavailable-picker" placeholder="Pick multiple dates" />
+          <label style="margin-top:10px;">
+            <input type="checkbox" id="limit-weekends" />
+            Limit weekend studying
+          </label>
+        </div>
+
+        <h3>Daily Study Hours</h3>
+        <div class="input-box">
+          <label>Daily Hours:</label>
+          <input type="number" id="daily-hours" value="5" min="1" />
+        </div>
+
+        <h3>Schedule Mode</h3>
+        <div class="input-box">
+          <label><input type="radio" name="schedule-type" value="daily" checked /> Daily Study</label><br>
+          <label><input type="radio" name="schedule-type" value="alternate" /> Alternate-Day</label>
+        </div>
+
+        <div style="text-align:center; margin-top:20px;">
+          <button class="btn btn-primary" id="generate-btn">Generate Timetable</button>
+          <button class="btn btn-outline" id="reschedule-btn">Reschedule</button>
+          <button class="btn btn-outline" id="save-btn">Save</button>
+          <button class="btn btn-ghost" id="export-pdf-btn">Export PDF</button>
+        </div>
+
+        <!-- TIMETABLE -->
+        <h3 style="margin-top:25px;">Generated Timetable</h3>
+        <div id="timetable-container" class="timetable-box"></div>
+
+        <!-- GRAPH -->
+        <h3>Free-Time vs Study Hours</h3>
+        <canvas id="chart-distribution" width="400" height="220"></canvas>
+
+        <!-- CALENDAR -->
+        <h3>Calendar Overview</h3>
+        <div id="calendar-container"></div>
+
+      </div>
+      <!-- ------------------- END PLANNER UI ------------------- -->
+
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script src="/static/js/ui_helpers.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Login — Study Planner</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body class="theme-blue">
+  <main class="center-root small-padding">
+    <section class="card card-3d auth-card">
+      <div class="auth-left">
+        <img class="logo-xs" src="/static/img/logo.png" />
+        <h2>Welcome back</h2>
+        <p>Login to access your planner and saved timetables.</p>
+      </div>
+
+      <form class="auth-form" method="POST" action="/login">
+        <label>Email
+          <input type="email" name="email" required />
+        </label>
+        <label>Password
+          <input type="password" name="password" required />
+        </label>
+        <div class="btn-row">
+          <button class="btn btn-primary" type="submit">Login</button>
+          <a class="btn btn-outline" href="/register">Create account</a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="/static/js/ui_helpers.js"></script>
+</body>
+</html>
