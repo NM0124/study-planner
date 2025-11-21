@@ -5,6 +5,8 @@ Includes both local development instructions and a Dockerized stack.
 
 ---
 
+![Uploading image.png…]()
+
 ## Quick choices
 - Local run (Python + system MySQL) — easy for testing
 - Docker run (MySQL + phpMyAdmin + Flask) — recommended for reproducible dev
