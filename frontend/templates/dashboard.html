@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Dashboard — Study Planner</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body class="theme-blue">
+  <main class="center-root">
+    <section class="card card-3d dashboard-card">
+      <div class="dash-header">
+        <img class="logo-xs" src="/static/img/logo.png" />
+        <div>
+          <h2>Dashboard</h2>
+          <p>Welcome — Your saved timetables appear below.</p>
+        </div>
+      </div>
+
+      <div class="dash-actions">
+        <a class="btn btn-primary" href="/planner">Open Planner</a>
+        <a class="btn btn-outline" href="/logout">Logout</a>
+      </div>
+
+      <div class="saved-list">
+        <!-- server will render saved timetables here -->
+        {% if timetables %}
+          {% for t in timetables %}
+            <div class="saved-card">
+              <div class="saved-left">
+                <strong>{{ t.title or "Untitled" }}</strong>
+                <div class="muted">Created {{ t.created_at }}</div>
+              </div>
+              <div class="saved-right">
+                <a class="btn btn-sm" href="/load_timetable/{{ t.id }}">Open</a>
+                <a class="btn btn-sm btn-danger" href="/delete_timetable/{{ t.id }}">Delete</a>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="muted">No saved timetables yet.</div>
+        {% endif %}
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/js/ui_helpers.js"></script>
+</body>
+</html>
