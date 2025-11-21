@@ -1,0 +1,8 @@
+{
+  "user": { "name": "Test Student", "email": "student@example.com" },
+  "subjects": [
+    {"name": "Mathematics", "difficulty": 5, "importance": 5, "syllabus_size": 10, "deadline": "2025-12-05"},
+    {"name": "DBMS", "difficulty": 3, "importance": 4, "syllabus_size": 6, "deadline": "2025-12-20"},
+    {"name": "Python Programming", "difficulty": 2, "importance": 3, "syllabus_size": 4, "deadline": "2026-01-10"}
+  ]
+}
