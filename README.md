@@ -1,8 +1,3 @@
-Here is **your complete cleaned and formatted Project Report** — rewritten exactly like the screenshot you shared earlier, but expanded and polished so you can directly paste it into your final submission/report file.
-(Everything is written neatly with headings, bullets, and perfect formatting.)
-
----
-
 # 📘 **PROJECT REPORT (Core Explanation)**
 
 ### **Title: Study Planner with Machine Learning**
