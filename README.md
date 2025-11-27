@@ -1,4 +1,4 @@
-# 📘 **PROJECT REPORT (Core Explanation)**
+# 📘 **PROJECT REPORT**
 
 ### **Title: Study Planner with Machine Learning**
 
