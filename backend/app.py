@@ -1,4 +1,3 @@
-# backend/app.py
 import os
 from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
 from datetime import datetime
@@ -7,11 +6,9 @@ from models import db, User, Timetable
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from scheduler import create_timetable
 import json
-# add these near other imports in app.py
 import traceback
 from train_model import train_and_save
 from models import SessionHistory
-
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(BASE_DIR)
@@ -46,14 +43,9 @@ with app.app_context():
     db.create_all()
 
 def record_generated_timetable_as_sessions(user, timetable: dict, subjects_meta: list):
-    """
-    Convert a generated timetable into SessionHistory rows and save to DB.
-    - user: current_user object or user id
-    - timetable: dict date -> [ {subject, hours}, ... ]
-    - subjects_meta: list of subject dicts provided by frontend (contains name, difficulty, importance, syllabus_size, deadline, task_type)
-    """
+
     try:
-        # Build lookup by subject name for metadata
+    
         meta_by_name = {}
         for s in subjects_meta:
             name = str(s.get("name","")).strip()
@@ -68,9 +60,9 @@ def record_generated_timetable_as_sessions(user, timetable: dict, subjects_meta:
             }
 
         rows = []
-        # For each date & slot create a SessionHistory row (days_to_deadline computed relative to slot date)
+    
         for date_str, slots in timetable.items():
-            # parse date_str (YYYY-MM-DD)
+        
             try:
                 day_date = datetime.fromisoformat(date_str).date()
             except Exception:
@@ -85,7 +77,7 @@ def record_generated_timetable_as_sessions(user, timetable: dict, subjects_meta:
                 if hours <= 0:
                     continue
                 meta = meta_by_name.get(subj_name, {})
-                # compute days_to_deadline
+        
                 days_to_deadline = None
                 if meta.get("deadline") and day_date:
                     try:
@@ -98,7 +90,6 @@ def record_generated_timetable_as_sessions(user, timetable: dict, subjects_meta:
                     if dl:
                         days_to_deadline = max(0, (dl - day_date).days)
 
-                # create SessionHistory object
                 sh = SessionHistory(
                     user_id = user.id if hasattr(user, "id") else user,
                     subject = subj_name,
@@ -123,7 +114,6 @@ def record_generated_timetable_as_sessions(user, timetable: dict, subjects_meta:
         return False, 0
 
 
-# ---- Pages ----
 @app.route("/")
 def root():
     if current_user.is_authenticated:
@@ -148,11 +138,8 @@ def dashboard():
 @app.route("/planner")
 @login_required
 def planner():
-    # planner.html contains the full planner UI and JS hooks
     return render_template("planner.html")
 
-
-# ---- Auth ----
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
@@ -197,8 +184,6 @@ def logout():
     flash("Logged out","info")
     return redirect(url_for("login"))
 
-
-# ---- API ----
 @app.route("/api/generate", methods=["POST"])
 @login_required
 def api_generate():
@@ -218,12 +203,10 @@ def api_generate():
     variant = body.get("variant", None)
     limit_weekends = bool(body.get("limit_weekends", False))
 
-    # Validate: deadlines required for every subject
     for s in subjects:
         if not s.get("deadline"):
             return jsonify({"error":"deadline missing for one or more subjects"}), 400
 
-    # Create timetable using scheduler
     timetable = create_timetable(
         subjects=subjects,
         daily_hours=daily_hours,
@@ -233,7 +216,6 @@ def api_generate():
         limit_weekends=limit_weekends
     )
 
-    # --- AutoML: record generated timetable as training samples and retrain model ---
     try:
         recorded, nrows = record_generated_timetable_as_sessions(current_user, timetable, subjects)
         app.logger.info("AutoML: recorded %s generated session rows", nrows if recorded else 0)
@@ -242,7 +224,6 @@ def api_generate():
         app.logger.error(traceback.format_exc())
 
     try:
-        # Train model — this will write backend/ml_model.joblib
         train_path = train_and_save(app)
         app.logger.info("AutoML: trained model at %s", train_path)
         model_trained = True
@@ -252,7 +233,6 @@ def api_generate():
         model_trained = False
 
     return jsonify({"timetable": timetable, "variant": variant, "model_trained": model_trained})
-
 
 
 @app.route("/api/reschedule", methods=["POST"])
@@ -287,7 +267,6 @@ def api_reschedule():
         limit_weekends=limit_weekends
     )
 
-    # record generated timetable as sessions and retrain
     try:
         recorded, nrows = record_generated_timetable_as_sessions(current_user, timetable, subjects)
         app.logger.info("AutoML (reschedule): recorded %s generated session rows", nrows if recorded else 0)
@@ -305,7 +284,6 @@ def api_reschedule():
         model_trained = False
 
     return jsonify({"timetable": timetable, "variant": variant, "model_trained": model_trained})
-
 
 
 @app.route("/api/save_timetable", methods=["POST"])
@@ -336,14 +314,12 @@ def api_delete_timetable(tt_id):
     db.session.delete(tt); db.session.commit()
     return jsonify({"status":"ok"})
 
-# add at top imports
 import os, joblib
 from train_model import train_and_save
 from models import SessionHistory
 
 MODEL_FILE = os.path.join(os.path.dirname(__file__), "ml_model.joblib")
 
-# --- API endpoint to record a session ---
 @app.route("/api/record_session", methods=["POST"])
 @login_required
 def api_record_session():
@@ -380,7 +356,6 @@ def api_record_session():
     db.session.commit()
     return jsonify({"status":"ok","id": sh.id})
 
-# --- API endpoint to trigger training (developer) ---
 @app.route("/api/train_model", methods=["POST"])
 @login_required
 def api_train_model():
@@ -394,7 +369,6 @@ def api_train_model():
     except Exception as e:
         return jsonify({"status":"error","message": str(e)}), 500
 
-# ---- Web Delete (used by dashboard button) ----
 @app.route("/delete_timetable/<int:tid>")
 @login_required
 def delete_timetable(tid):
@@ -407,7 +381,6 @@ def delete_timetable(tid):
     db.session.commit()
     flash("Timetable deleted", "success")
     return redirect("/dashboard")
-
 
 if __name__ == "__main__":
     app.run(debug=True)
