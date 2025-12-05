@@ -8,7 +8,7 @@
 
 “**Study Planner with Machine Learning**” is a full-stack intelligent timetable generator that helps students automatically create optimized study schedules.
 
-It uses:
+Key components are:
 
 * User inputs (subjects, difficulty, importance, deadlines)
 * Unavailable days
@@ -26,7 +26,7 @@ The goal is to eliminate manual planning and allow students to focus on studying
 
 # **2. Objectives**
 
-The project aims to:
+Objective includes:
 
 * Automate timetable generation
 * Prioritize subjects smartly before deadlines
@@ -41,7 +41,7 @@ The project aims to:
 
 # **3. Tech Stack Used**
 
-Below is the technology list used in this project:
+Technologies used are listed as follows:
 
 ---
 
@@ -85,7 +85,7 @@ Below is the technology list used in this project:
 
 # **4. System Architecture**
 
-This project follows a clean 3-layer architecture:
+A 3-layer architecture is used:
 
 ### **1. Frontend UI**
 
@@ -180,7 +180,7 @@ Based on:
 
 # **6. Scheduler Logic (Heuristic Hybrid)**
 
-Scheduling logic includes:
+The scheduling logic is based on:
 
 ### ✔ Deadline urgency prioritization
 
@@ -237,7 +237,7 @@ All relationships handled via SQLAlchemy ORM.
 
 # **8. Conclusion**
 
-This project successfully delivers:
+The system provides:
 
 ✔ Fully automated study-planner
 ✔ Smart scheduling using heuristics
