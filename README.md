@@ -30,7 +30,7 @@ The project aims to:
 
 * Automate timetable generation
 * Prioritize subjects smartly before deadlines
-* Include AI/ML for predictive study-hour allocation
+* Include ML for predictive study-hour allocation
 * Provide a clean, interactive, modern UI
 * Allow users to save, load, delete timetables
 * Visualize workload using charts & calendars
@@ -85,7 +85,7 @@ Below is the technology list used in this project:
 
 # **4. System Architecture**
 
-Your project follows a clean 3-layer architecture:
+This project follows a clean 3-layer architecture:
 
 ### **1. Frontend UI**
 
@@ -131,7 +131,6 @@ Based on:
 * Units remaining
 * Unavailable dates
 * ML predictions
-* Heuristic AI rules
 
 ### ✅ **3. Rescheduling Button**
 
@@ -179,9 +178,9 @@ Based on:
 
 ---
 
-# **6. Scheduler Logic (AI + Heuristic Hybrid)**
+# **6. Scheduler Logic (Heuristic Hybrid)**
 
-Your scheduling logic includes:
+Scheduling logic includes:
 
 ### ✔ Deadline urgency prioritization
 
@@ -241,7 +240,7 @@ All relationships handled via SQLAlchemy ORM.
 This project successfully delivers:
 
 ✔ Fully automated study-planner
-✔ Smart scheduling using AI + heuristics
+✔ Smart scheduling using heuristics
 ✔ Beautiful UI with charts and calendar
 ✔ Login system + Save/Delete timetables
 ✔ PDF export
