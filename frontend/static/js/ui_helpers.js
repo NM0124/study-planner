@@ -1,4 +1,3 @@
-// ui_helpers.js
 console.log("UI helpers loaded");
 
 function showCenteredLoader(message = "Loading...") {
@@ -30,7 +29,6 @@ function hideCenteredLoader() {
 window.showCenteredLoader = showCenteredLoader;
 window.hideCenteredLoader = hideCenteredLoader;
 
-/* tiny spinner keyframes */
 const style = document.createElement('style');
 style.innerHTML = `@keyframes spin { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }`;
 document.head.appendChild(style);
