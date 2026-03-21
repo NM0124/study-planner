@@ -1,0 +1,10 @@
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+backend/instance/
+backend/studyplanner.db
+backend/venv/
+backend/.env
+.idea/
+.vscode/

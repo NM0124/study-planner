@@ -10,7 +10,6 @@
   <main class="center-root wide">
     <section class="card card-3d planner-card">
 
-      <!-- Header bar -->
       <header class="planner-header">
         <div class="planner-left">
           <img class="logo-xs" src="/static/img/logo.png" />
@@ -22,13 +21,14 @@
         </div>
       </header>
 
-      <!-- ------------------- PLANNER UI (YOUR OLD UI) ------------------- -->
       <div id="planner-root">
 
         <h3>Add Subjects</h3>
         <div class="subject-container" id="subjects-list"></div>
-        <button class="btn btn-primary" id="add-subject-btn">+ Add Subject</button>
-        <button class="btn btn-outline" id="seed-btn">Load Sample Subjects</button>
+        <div style="display: flex; gap: 12px; margin-top: 15px;">
+          <button class="btn btn-primary" id="add-subject-btn">➕ Add Subject</button>
+          <button class="btn btn-outline" id="seed-btn">📚 Load Sample Subjects</button>
+        </div>
 
         <h3 style="margin-top:25px;">Unavailable Dates</h3>
         <div class="input-box">
@@ -52,27 +52,34 @@
           <label><input type="radio" name="schedule-type" value="alternate" /> Alternate-Day</label>
         </div>
 
-        <div style="text-align:center; margin-top:20px;">
-          <button class="btn btn-primary" id="generate-btn">Generate Timetable</button>
-          <button class="btn btn-outline" id="reschedule-btn">Reschedule</button>
-          <button class="btn btn-outline" id="save-btn">Save</button>
-          <button class="btn btn-ghost" id="export-pdf-btn">Export PDF</button>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-top: 30px; padding-top: 25px; border-top: 1px solid rgba(0,0,0,0.05);">
+          <button class="btn btn-primary" id="generate-btn" style="padding: 14px 28px; font-size: 16px; background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);">✨ Generate Timetable</button>
+          <button class="btn btn-outline" id="reschedule-btn">🔄 Reschedule</button>
+          <button class="btn btn-outline" id="save-btn">💾 Save</button>
+          <button class="btn btn-ghost" id="export-pdf-btn">📄 Export PDF</button>
         </div>
 
-        <!-- TIMETABLE -->
+
         <h3 style="margin-top:25px;">Generated Timetable</h3>
         <div id="timetable-container" class="timetable-box"></div>
 
-        <!-- GRAPH -->
         <h3>Free-Time vs Study Hours</h3>
         <canvas id="chart-distribution" width="400" height="220"></canvas>
 
-        <!-- CALENDAR -->
         <h3>Calendar Overview</h3>
-        <div id="calendar-container"></div>
+        <div style="display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap; margin-top: 15px;">
+          <div id="calendar-container" style="flex: 1; min-width: 300px;"></div>
+          
+          <div class="calendar-legend" style="flex-basis: 200px; display: flex; flex-direction: column; gap: 15px; margin-top: 0; padding: 20px; background: #f8fafc; border-radius: 12px; border: 1px solid rgba(0,0,0,0.04);">
+            <div style="font-weight: 600; color: #334155; margin-bottom: 5px;">Legend</div>
+            <div class="legend-item"><span class="legend-box cal-free"></span> Free Time</div>
+            <div class="legend-item"><span class="legend-box cal-partial"></span> Partial Study</div>
+            <div class="legend-item"><span class="legend-box cal-busy"></span> Busy (Near Limit)</div>
+            <div class="legend-item"><span class="legend-box cal-unavailable" style="border: 1px dashed #cbd5e1;"></span> Unavailable / Weekend</div>
+          </div>
+        </div>
 
       </div>
-      <!-- ------------------- END PLANNER UI ------------------- -->
 
     </section>
   </main>
@@ -81,7 +88,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-  <script src="/static/js/ui_helpers.js"></script>
+
   <script src="/static/js/app.js"></script>
 </body>
 </html>

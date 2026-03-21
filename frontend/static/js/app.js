@@ -1,8 +1,6 @@
-// frontend/static/js/app.js
 console.log("APP.JS LOADED");
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Elements
   const subjectsList = document.getElementById("subjects-list");
   const addBtn = document.getElementById("add-subject-btn");
   const seedBtn = document.getElementById("seed-btn");
@@ -18,12 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let chart = null;
 
-  // Utility to set latest timetable globally
   function setLatestTimetable(tt) {
     window.latestTimetable = tt;
   }
 
-  // Create subject row
   function createSubjectRow(data = {}) {
     const div = document.createElement("div");
     div.className = "subject-row";
@@ -48,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   addBtn.onclick = () => createSubjectRow();
 
-  // seed demo
   seedBtn.onclick = () => {
     subjectsList.innerHTML = "";
     createSubjectRow({ name: "Mathematics", difficulty: 5, importance:5, syllabus_size:10, deadline: new Date(Date.now()+7*86400e3).toISOString().slice(0,10), task_type:"Exam" });
@@ -56,7 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
     createSubjectRow({ name: "Python", difficulty: 2, importance:3, syllabus_size:4, deadline: new Date(Date.now()+30*86400e3).toISOString().slice(0,10), task_type:"Project" });
   };
 
-  // collect subjects (with validation for deadline)
   function collectSubjects() {
     const rows = [...document.querySelectorAll(".subject-row")];
     const subjects = [];
@@ -79,10 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
     return subjects;
   }
 
-  // render timetable
   function renderTimetable(timetable) {
     timetableContainer.innerHTML = "";
-    const totals = {}; // subject -> total hours
+    const totals = {}; 
     for (const date of Object.keys(timetable).sort()) {
       const block = document.createElement("div");
       block.className = "day-block";
@@ -104,7 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCalendarHighlights(timetable);
   }
 
-  // chart: bar chart showing study vs free time per day
   function renderChartFromTimetable(timetable) {
     const ctx = document.getElementById('chart-distribution').getContext('2d');
     const labels = [];
@@ -136,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // calendar: highlight busy/free/unavailable
+  
   function renderCalendarHighlights(timetable) {
     const sched = {};
     Object.keys(timetable).forEach(d => {
@@ -182,7 +174,6 @@ document.addEventListener("DOMContentLoaded", () => {
     table.appendChild(row); calendarContainer.appendChild(table);
   }
 
-  // Export PDF with styling: grid + colored header
   async function exportPDF() {
     if (!window.latestTimetable) { alert("Generate first"); return; }
     const { jsPDF } = window.jspdf;
@@ -192,7 +183,6 @@ document.addEventListener("DOMContentLoaded", () => {
     doc.setFontSize(18);
     doc.text("Study Planner — Timetable", margin, 40);
 
-    // header color rectangle
     doc.setFillColor(40, 100, 200);
     doc.rect(margin, y-10, 520, 24, "F");
     doc.setTextColor(255,255,255);
@@ -221,7 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
     doc.save("timetable.pdf");
   }
 
-  // save timetable to server
   async function saveTimetable() {
     if (!window.latestTimetable) { alert("Generate first"); return; }
     const title = prompt("Title for timetable:", "My Timetable");
@@ -239,7 +228,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Generate function
   async function generate(variant=null) {
     let subjects;
     try { subjects = collectSubjects(); }
@@ -276,7 +264,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (e) { alert("Generate failed"); }
   }
 
-  // Reschedule
   async function reschedule() {
   let subjects;
   try { subjects = collectSubjects(); }
@@ -314,7 +301,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Render the new timetable
     renderTimetable(data.timetable);
 
   } catch (err) {
@@ -322,8 +308,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 }
 
-
-  // Load incoming timetable from dashboard
   const loaded = localStorage.getItem("loaded_timetable");
   if (loaded) {
     const parsed = JSON.parse(loaded);
@@ -333,17 +317,14 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.removeItem("loaded_timetable");
   }
 
-  // Wire events
   generateBtn.onclick = () => generate();
   rescheduleBtn.onclick = () => reschedule();
   saveBtn.onclick = () => saveTimetable();
   exportPdfBtn.onclick = () => exportPDF();
 
-  // flatpickr instance global var so other functions can use it
   window.flatpickrInstance = flatpickr(unavailablePicker, { mode: "multiple", dateFormat: "Y-m-d" });
   const flatpickrInstance = window.flatpickrInstance;
 
-  // initial row
   createSubjectRow();
 
 });

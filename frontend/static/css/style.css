@@ -1,11 +1,7 @@
-/* style.css - centered 3D card UI, dual-mode (blue/pink) */
-
-/* --- Reset / base --- */
 * { box-sizing: border-box; }
 html,body { height: 100%; margin: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: linear-gradient(180deg,#f4f7fb,#eef3fb); color: #222; -webkit-font-smoothing:antialiased; }
 a { text-decoration: none; color: inherit; }
 
-/* --- Layout helpers --- */
 .center-root {
   min-height: 100vh;
   display: flex;
@@ -17,11 +13,9 @@ a { text-decoration: none; color: inherit; }
 }
 .center-root.wide { width: 100%; padding-left: 20px; padding-right: 20px; }
 
-/* --- Logo --- */
 .logo { width: 120px; height: 120px; object-fit: cover; border-radius: 20px; box-shadow: 0 8px 30px rgba(40,80,200,0.12); margin-bottom: 6px; }
 .logo-xs { width: 48px; height: 48px; object-fit: cover; border-radius: 10px; margin-right: 12px; }
 
-/* --- Card --- */
 .card {
   width: 720px;
   max-width: calc(100% - 40px);
@@ -40,26 +34,27 @@ a { text-decoration: none; color: inherit; }
 }
 .card-3d:hover { transform: translateY(-6px) rotateX(0.2deg); box-shadow: 0 18px 50px rgba(21,30,120,0.12); }
 
-/* --- Titles --- */
 .title { font-size: 26px; margin: 2px 0; }
 .subtitle { color: #5b6470; margin: 0 0 12px 0; }
 
-/* --- Buttons --- */
-.btn-row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:8px; }
-.btn { padding: 10px 16px; border-radius: 10px; cursor: pointer; font-weight:600; border: none; display:inline-block; text-align:center; }
-.btn-primary { background: linear-gradient(90deg,#2f6bed,#4b7bec); color: white; box-shadow: 0 6px 18px rgba(75,124,236,0.18); }
-.btn-outline { background: transparent; color: #2f6bed; border: 1px solid rgba(47,107,237,0.12); }
-.btn-ghost { background: transparent; color: #6b7280; border: 1px dashed #e6eefb; }
-.btn-sm { padding:6px 10px; font-size:13px; border-radius:8px; }
+.btn-row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:8px; }
+.btn { padding: 12px 20px; border-radius: 12px; cursor: pointer; font-weight:600; border: none; display:inline-flex; align-items:center; justify-content:center; gap:8px; text-align:center; transition: all 0.25s ease; font-family:inherit; font-size:14px; }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: linear-gradient(135deg,#4361ee,#3a0ca3); color: white; box-shadow: 0 8px 20px rgba(67,97,238,0.25); }
+.btn-primary:hover { box-shadow: 0 10px 25px rgba(67,97,238,0.35); filter: brightness(1.05); }
+.btn-outline { background: transparent; color: #4361ee; border: 2px solid rgba(67,97,238,0.2); }
+.btn-outline:hover { border-color: #4361ee; background: rgba(67,97,238,0.05); }
+.btn-ghost { background: #f8f9fa; color: #495057; border: 1px solid #e9ecef; }
+.btn-ghost:hover { background: #e9ecef; color: #212529; }
+.btn-sm { padding:8px 12px; font-size:13px; border-radius:10px; }
 
-/* --- Auth card layout --- */
 .auth-card { flex-direction: row; gap: 18px; align-items: center; justify-content: space-between; }
 .auth-left { width: 42%; padding-right: 8px; display:flex; flex-direction:column; gap:8px; }
 .auth-form { width: 58%; display:flex; flex-direction:column; gap:10px; }
 .auth-form label { display:block; font-size:13px; color:#334155; }
 .auth-form input, .auth-form select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid #e6eefb; background: #fbfdff; }
 
-/* --- Dashboard --- */
 .dashboard-card { gap: 18px; }
 .dash-header { display:flex; gap:12px; align-items:center; }
 .dash-actions { display:flex; gap:10px; justify-content:flex-end; }
@@ -67,29 +62,43 @@ a { text-decoration: none; color: inherit; }
 .saved-card { display:flex; justify-content:space-between; align-items:center; padding:10px; border-radius:10px; background:linear-gradient(180deg,#ffffff,#fbfdff); box-shadow: 0 6px 18px rgba(16,24,63,0.04); }
 .saved-left .muted { color:#718096; font-size:13px; }
 
-/* --- Planner header --- */
 .planner-header { display:flex; align-items:center; justify-content:space-between; gap:10px; border-bottom: 1px solid rgba(15,23,42,0.04); padding-bottom:12px; margin-bottom:12px; }
 
-/* --- small utilities --- */
 .small-padding { padding: 20px; }
 .muted { color:#6b7280; }
 .center { text-align:center; }
 
-/* --- Calendar chip classes --- */
 .cal-unavailable { background:#f1f5f9 !important; color:#8b93a8 !important; }
-.cal-busy { background: #ff7675 !important; color:white; }
-.cal-partial { background: #ffd6e7 !important; color:#333; }
-.cal-free { background: #c7f0d8 !important; color:#064e3b; }
+.cal-busy { background: #ff7675 !important; color:white; border: 1px solid #ff7675; }
+.cal-partial { background: #ffd6e7 !important; color:#333; border: 1px solid #ffd6e7; }
+.cal-free { background: #c7f0d8 !important; color:#064e3b; border: 1px solid #c7f0d8; }
 
-/* --- Theme: Blue (default) --- */
+.small-calendar { width: 100%; border-collapse: separate; border-spacing: 4px; margin-top: 15px; }
+.small-calendar th { padding: 8px; font-weight: 600; color: #5b6470; }
+.small-calendar td { padding: 12px 8px; text-align: center; border-radius: 8px; font-weight: 500; cursor: default; transition: transform 0.2s, box-shadow 0.2s; }
+.small-calendar td:hover { transform: scale(1.1); box-shadow: 0 6px 16px rgba(0,0,0,0.1); z-index: 10; position: relative; }
+
+.calendar-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+    font-size: 13px;
+    color: #444;
+    padding: 10px;
+    background: #f8fafc;
+    border-radius: 12px;
+}
+.legend-item { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+.legend-box { width: 16px; height: 16px; border-radius: 4px; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
 body.theme-blue { background: linear-gradient(180deg,#eaf2ff,#f3f8ff); }
 body.theme-blue .card { border:1px solid rgba(60,102,255,0.03); }
 
-/* --- Theme: Pink for planner pages --- */
 body.theme-pink { background: linear-gradient(180deg,#fff0f6,#fff8fb); }
 body.theme-pink .card { border:1px solid rgba(255,128,171,0.04); }
 
-/* --- Responsive --- */
 @media (max-width: 880px) {
   .card { width: 92%; padding:18px; }
   .auth-card { flex-direction: column; }
