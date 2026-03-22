@@ -1,4 +1,4 @@
-# AI Study Planner 
+# Study Planner 
 
 An intelligent, ML-backed web application built for students to intelligently organize, automate, and construct customized study timetables. Built on top of Python, Flask, and scikit-learn, the application dynamically breaks down daily study hours in correlation to a subject's unique difficulty, importance, size, and deadline urgency.
 
